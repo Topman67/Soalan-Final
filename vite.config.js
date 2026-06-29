@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  base: './',
+  base: '/Soalan-Final/',
   plugins: [react(), tailwindcss()],
 });
