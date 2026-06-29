@@ -712,6 +712,20 @@ button {
   line-height: 1.55;
 }
 
+.code-answer-block {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+}
+
+.code-answer-block span {
+  color: #67e8f9;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .exam-lock {
   display: flex;
   gap: 0.8rem;

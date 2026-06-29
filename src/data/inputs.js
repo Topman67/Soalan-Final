@@ -32,6 +32,110 @@ export const graphEdges = [
   ['F', 'G', 9],
 ];
 
+const bubbleSortCode = `function bubbleSort(arr) {
+  const a = [...arr];
+
+  for (let i = 0; i < a.length - 1; i++) {
+    for (let j = 0; j < a.length - i - 1; j++) {
+      if (a[j] > a[j + 1]) {
+        [a[j], a[j + 1]] = [a[j + 1], a[j]];
+      }
+    }
+  }
+
+  return a;
+}`;
+
+const binaryQuadraticCode = `function binarySearchQuadratic(arr, target) {
+  const a = [...arr].sort((x, y) => x - y);
+
+  for (let i = 0; i < a.length; i++) {
+    for (let j = 0; j < a.length; j++) {
+      const dummy = a[i];
+    }
+  }
+
+  let low = 0;
+  let high = a.length - 1;
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    if (a[mid] === target) return mid;
+    if (a[mid] < target) low = mid + 1;
+    else high = mid - 1;
+  }
+
+  return -1;
+}`;
+
+const recursiveBinaryCode = `function recursiveBinarySearch(arr, target, low = 0, high = arr.length - 1) {
+  if (low > high) return -1;
+
+  const mid = Math.floor((low + high) / 2);
+  if (arr[mid] === target) return mid;
+
+  if (arr[mid] < target) {
+    return recursiveBinarySearch(arr, target, mid + 1, high);
+  }
+
+  return recursiveBinarySearch(arr, target, low, mid - 1);
+}`;
+
+const power5nCode = `function power5n(a, n) {
+  if (n === 0) return 1;
+
+  if (n % 2 === 0) {
+    const half = power5n(a, n / 2);
+    return half * half;
+  }
+
+  return Math.pow(a, 5) * power5n(a, n - 1);
+}`;
+
+const power2nCode = `function power2n(a, n) {
+  if (n === 0) return 1;
+
+  if (n % 2 === 0) {
+    const half = power2n(a, n / 2);
+    return half * half;
+  }
+
+  return Math.pow(a, 2) * power2n(a, n - 1);
+}`;
+
+const findMinCode = `function findMin(arr, left = 0, right = arr.length - 1) {
+  if (left === right) return arr[left];
+
+  const mid = Math.floor((left + right) / 2);
+  const leftMin = findMin(arr, left, mid);
+  const rightMin = findMin(arr, mid + 1, right);
+
+  return Math.min(leftMin, rightMin);
+}`;
+
+const mergeSortCode = `function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
+}
+
+function merge(left, right) {
+  const result = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < left.length && j < right.length) {
+    if (left[i] <= right[j]) result.push(left[i++]);
+    else result.push(right[j++]);
+  }
+
+  return result.concat(left.slice(i), right.slice(j));
+}`;
+
 export const examPapers = [
   {
     id: 'sem1',
@@ -61,6 +165,7 @@ for i = 1 to n - 1
     if C[j] > C[j + 1]
       swap C[j], C[j + 1]
 return C`,
+            codeSolution: bubbleSortCode,
             finalAnswer: 'Bubble sort repeatedly compares adjacent elements and swaps them until the list is sorted.',
             complexity: 'Worst case: O(n^2). Best case with early stop: O(n).',
           },
@@ -113,6 +218,7 @@ for i = 1 to n
   for j = 1 to n
     dummy = A[i]
 run standard binary search`,
+            codeSolution: binaryQuadraticCode,
             finalAnswer: 'The overall complexity becomes O(n^2) + O(log n) = O(n^2).',
             complexity: 'Time: O(n^2), Space: O(1).',
           },
@@ -133,6 +239,7 @@ mid = floor((low + high) / 2)
 if A[mid] == target return mid
 if A[mid] < target search right half
 else search left half`,
+            codeSolution: recursiveBinaryCode,
             finalAnswer: 'The recursive version repeatedly halves the search interval until the target is found or the range is empty.',
             complexity: 'Recursive search alone is O(log n); with required preprocessing, total is O(n^2).',
           },
@@ -186,6 +293,7 @@ if n is even
   half = Power5n(a, n / 2)
   return half * half
 return a^5 * Power5n(a, n - 1)`,
+            codeSolution: power5nCode,
             finalAnswer: 'A recursive divide-and-conquer exponentiation algorithm can compute a^(5n).',
             complexity: 'Using halving recurrence: O(log n).',
           },
@@ -203,6 +311,7 @@ return a^5 * Power5n(a, n - 1)`,
 if left == right return X[left]
 mid = floor((left + right) / 2)
 return min(FindMin(left, mid), FindMin(mid + 1, right))`,
+            codeSolution: findMinCode,
             finalAnswer: 'The lowest value is found by recursively comparing the minimum of each half.',
             complexity: 'Time: O(n), Space: O(log n) recursion stack.',
           },
@@ -323,6 +432,7 @@ Merge(L, R)
     append remaining elements of R
 
     return Result`,
+            codeSolution: mergeSortCode,
             finalAnswer: 'Merge sort divides the array into left and right halves, recursively sorts both halves, and combines them using the Merge function.',
             complexity: 'Worst case: O(n log n).',
           },
@@ -375,6 +485,19 @@ low = 1, high = n
 while low <= high
   mid = floor((low + high) / 2)
   compare A[mid] with target`,
+            codeSolution: `function binarySearch(arr, target) {
+  let low = 0;
+  let high = arr.length - 1;
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    if (arr[mid] === target) return mid;
+    if (arr[mid] < target) low = mid + 1;
+    else high = mid - 1;
+  }
+
+  return -1;
+}`,
             finalAnswer: 'Binary search repeatedly halves a sorted search range.',
             complexity: 'Time: O(log n).',
           },
@@ -394,6 +517,7 @@ mid = floor((low + high) / 2)
 if A[mid] == target return mid
 if A[mid] < target search right
 else search left`,
+            codeSolution: recursiveBinaryCode,
             finalAnswer: 'The recursive binary search performs the same halving logic through function calls.',
             complexity: 'Time: O(log n), recursion stack: O(log n).',
           },
@@ -446,6 +570,7 @@ else search left`,
 if n == 0 return 1
 if n is even return Power2n(a, n/2)^2
 return a^2 * Power2n(a, n - 1)`,
+            codeSolution: power2nCode,
             finalAnswer: 'The recursive algorithm computes a^(2n) using exponent reduction.',
             complexity: 'Using halving recurrence: O(log n).',
           },
@@ -459,6 +584,11 @@ return a^2 * Power2n(a, n - 1)`,
               'Recursively find the minimum from each half.',
               'Return the smaller of both results.',
             ],
+            algorithm: `FindMin(X, left, right)
+if left == right return X[left]
+mid = floor((left + right) / 2)
+return min(FindMin(left, mid), FindMin(mid + 1, right))`,
+            codeSolution: findMinCode,
             finalAnswer: 'The lowest value is obtained by recursively comparing subproblem minima.',
             complexity: 'Time: O(n).',
           },

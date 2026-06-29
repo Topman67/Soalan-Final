@@ -31,7 +31,18 @@ export default function ExplanationPanel({ question, part, step }) {
           <div className="answer-label"><Eye size={16} /> Answer visible</div>
           <p><strong>Final answer:</strong> {part.finalAnswer}</p>
           {part.complexity && <p><strong>Complexity:</strong> {part.complexity}</p>}
-          {part.algorithm && <pre><code>{part.algorithm}</code></pre>}
+          {part.algorithm && (
+            <div className="code-answer-block">
+              <span>Pseudocode Answer</span>
+              <pre><code>{part.algorithm}</code></pre>
+            </div>
+          )}
+          {part.codeSolution && (
+            <div className="code-answer-block">
+              <span>Coding Answer</span>
+              <pre><code>{part.codeSolution}</code></pre>
+            </div>
+          )}
         </div>
       ) : (
         <div className="exam-lock">
