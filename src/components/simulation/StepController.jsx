@@ -1,8 +1,8 @@
 import { Pause, Play, RotateCcw, SkipBack, SkipForward } from 'lucide-react';
 
-export default function StepController({ playing, onPlayPause, onNext, onPrev, onReset, current, total }) {
+export default function StepController({ playing, onPlayPause, onNext, onPrev, onReset, current, total, compact = false }) {
   return (
-    <div className="step-controller">
+    <div className={compact ? 'step-controller compact' : 'step-controller'}>
       <button className="icon-button" onClick={onReset} title="Reset simulation" aria-label="Reset simulation">
         <RotateCcw size={18} />
       </button>

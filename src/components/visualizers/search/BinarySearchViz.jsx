@@ -1,30 +1,24 @@
-import { motion } from 'framer-motion';
+import BinaryArrayCell from './BinaryArrayCell.jsx';
+import BinarySearchExplanation from './BinarySearchExplanation.jsx';
+import BinarySearchLegend from './BinarySearchLegend.jsx';
 
 export default function BinarySearchViz({ step }) {
   const values = step?.array || [];
 
   return (
     <div className="binary-stage">
-      <div className="binary-grid">
+      <BinarySearchLegend />
+      <div className="binary-array-grid">
         {values.map((value, index) => {
-          const inRange = index >= step.low && index <= step.high;
-          const isMid = index === step.mid;
-          const isFound = isMid && step.found;
+          const role = index === step.mid ? 'mid' : index === step.low ? 'low' : index === step.high ? 'high' : '';
+          const eliminated = step.eliminatedLeft?.includes(index) || step.eliminatedRight?.includes(index) || index < step.low || index > step.high;
+          const found = index === step.mid && step.found;
           return (
-            <motion.div
-              key={value}
-              className={`binary-cell ${inRange ? 'in-range' : 'eliminated'} ${isMid ? 'mid' : ''} ${isFound ? 'found' : ''}`}
-              animate={{ y: isMid ? -8 : 0, opacity: inRange ? 1 : 0.26 }}
-              transition={{ duration: 0.35 }}
-            >
-              <span>{value}</span>
-              {index === step.low && <small>low</small>}
-              {isMid && <small>mid</small>}
-              {index === step.high && <small>high</small>}
-            </motion.div>
+            <BinaryArrayCell key={`${value}-${index}`} value={value} index={index} role={role} eliminated={eliminated} found={found} />
           );
         })}
       </div>
+      <BinarySearchExplanation step={step} />
     </div>
   );
 }
